@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late GoogleMapController _googleMapController;
-  int _counter = 0;
 
   @override
   void initState() {
@@ -28,7 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Icon(Icons.add_location_alt_rounded),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        title: const Text('Locator', style: TextStyle(fontWeight: FontWeight.w700),),
+        title: const Text(
+          'Locator',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
       ),
       body: Center(
         child: GetBuilder<LocateController>(builder: (controller) {
@@ -40,14 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.orange)
             },
             onCameraIdle: () async {
-              if (_counter <= 15) {
                 await Future.delayed(Duration(seconds: 2));
                 _googleMapController.animateCamera(CameraUpdate.newLatLngZoom(
                     LatLng(controller.userPosition?.latitude ?? 0,
                         controller.userPosition?.longitude ?? 0),
-                    18));
-                _counter++;
-              }
+                    19));
             },
             onMapCreated: (GoogleMapController controller) {
               _googleMapController = controller;
@@ -64,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 position: LatLng(controller.userPosition?.latitude ?? 22.37,
                     controller.userPosition?.longitude ?? 91.84),
                 draggable: false,
-                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueOrange),
                 infoWindow: InfoWindow(
                     title: "My current location",
                     snippet:
